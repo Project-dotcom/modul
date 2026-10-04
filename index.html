@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ekspedisi Data</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12343b;--bg:#e6f4ee;--co:#ff6b57;--su:#ffc93c;--la:#2bb3a3;--vi:#7a5cff;--sk:#6cc7ff}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Outfit',system-ui,sans-serif;color:var(--ink);min-height:100vh;padding-bottom:40px;background:repeating-radial-gradient(circle at 15% 8%,transparent 0 30px,rgba(18,52,59,.06) 30px 32px),var(--bg)}
+main{max-width:720px;margin:0 auto;padding:0 14px;transition:margin .25s}
+h1{font-size:2.6rem;line-height:1.05;font-weight:800}h2{font-size:1.35rem;font-weight:800;margin-bottom:6px}h3{margin-bottom:6px;font-weight:800}
+p,li{line-height:1.55}ol,ul{padding-left:20px}
+.card{background:#fff;border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:16px;margin:16px 0}
+.btn{font:inherit;font-weight:600;border:2px solid var(--ink);border-radius:10px;padding:9px 16px;background:var(--su);color:var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.btn:active{transform:translate(3px,3px);box-shadow:none}.btn.co{background:var(--co);color:#fff}.btn.la{background:var(--la);color:#fff}.btn.vi{background:var(--vi);color:#fff}.btn[disabled]{opacity:.45;cursor:not-allowed}
+input[type=text],input[type=password]{font:inherit;width:100%;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;margin:6px 0}
+.top{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;margin:0 -14px;padding:10px 14px 10px 62px;border-radius:0 0 16px 16px}
+.top .r{display:flex;gap:10px;align-items:center}
+.bar{flex:1;height:14px;border-radius:8px;background:rgba(255,255,255,.2);overflow:hidden}.bar i{display:block;height:100%;background:var(--su);transition:width .6s}
+.bd{display:flex;gap:6px;margin-top:8px}.bd span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:800;border:2px dashed rgba(255,255,255,.4);color:rgba(255,255,255,.5)}.bd span.on{border:2px solid #fff;color:var(--ink);transform:rotate(-6deg)}
+.tag{background:var(--sk);border:2px solid var(--ink);border-radius:8px;padding:0 8px;font-size:.85rem;font-weight:600;white-space:nowrap}
+code{display:block;background:var(--ink);color:var(--su);border-radius:10px;padding:10px;margin:8px 0;overflow-x:auto;font-size:.9rem;white-space:pre}
+.trail{position:relative;margin:12px 0}.trail:before{content:"";position:absolute;left:27px;top:20px;bottom:20px;border-left:4px dotted var(--ink);opacity:.4}
+.lv{position:relative;display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin:10px 0;padding:8px 12px;background:#fff}
+.lv .n{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:800;background:var(--sk)}
+.lv.done .n{background:var(--la);color:#fff}.lv.lock{opacity:.5}.lv small{display:block;font-weight:400}
+#sb,#mb,#bk{display:none}body.in #sb{display:flex}body.in #mb{display:block}
+#sb{position:fixed;top:0;left:0;bottom:0;width:240px;flex-direction:column;gap:6px;padding:68px 12px 12px;background:var(--ink);color:#fff;z-index:30;transform:translateX(-105%);transition:transform .25s;overflow-y:auto}
+body.so #sb{transform:none}
+#sb button{font:inherit;font-weight:600;text-align:left;border:2px solid transparent;background:none;color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}
+#sb button.on{background:var(--su);color:var(--ink)}#sb small{display:block;font-weight:400;opacity:.75}
+#mb{position:fixed;top:10px;left:10px;z-index:40;width:42px;height:42px;border:2px solid var(--ink);border-radius:10px;background:var(--su);cursor:pointer;padding:0 9px}
+#mb i{display:block;height:3px;background:var(--ink);margin:5px 0;border-radius:2px}
+@media(min-width:900px){body.so main{margin-left:260px}}
+@media(max-width:899px){body.so #bk{display:block;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:25}}
+.opt{display:block;width:100%;margin:8px 0;text-align:left}.opt.ok{background:var(--la)!important;color:#fff}.opt.no{background:#ffb3a8!important;animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.sw{display:inline-block;width:32px;height:32px;border:2px solid var(--ink);border-radius:50%;margin:3px;cursor:pointer}.sw.on{outline:3px solid var(--vi);outline-offset:2px}
+#tm{font-weight:800}.chip{display:inline-block;margin:3px;padding:4px 12px}
+details summary{cursor:pointer}details[open] summary{margin-bottom:8px}
+.sh{border-collapse:collapse;font-size:.85rem}.sh th,.sh td{border:1px solid var(--ink);padding:2px 8px;text-align:center}.sh th{background:#dcece6}.sh td.hl{background:var(--su);font-weight:600}
+.vz{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin:8px 0}.rs{border:2px dashed var(--co);border-radius:10px;padding:8px 12px;margin:8px 0;font-weight:600}
+#toast{position:fixed;left:50%;top:80px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;z-index:50;display:none;max-width:90%}
+.cf{position:fixed;top:-20px;width:10px;height:16px;z-index:60;pointer-events:none;animation:fall 2.4s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.c3{border:2px solid var(--ink);border-radius:14px;background:linear-gradient(#bfe9ff,#fff1d0);overflow:hidden;box-shadow:4px 4px 0 var(--ink)}.c3 canvas{display:block;width:100%!important}
+.hero{padding:34px 4px 6px}.hero svg{margin-bottom:10px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Penyesuaian HP */
+html{-webkit-text-size-adjust:100%}
+body{min-height:100dvh}
+h1{font-size:clamp(2rem,10vw,2.6rem)}
+.top .r{min-width:0}.top .r b{white-space:nowrap}
+#sb{width:min(260px,82vw)}
+@media(pointer:coarse){
+ .btn{min-height:44px}
+ .chip{min-height:40px;padding:8px 14px}
+ .sw{width:38px;height:38px}
+}
+@media(max-width:480px){
+ main{padding:0 10px}
+ .top{margin:0 -10px;padding:10px 10px 10px 60px}
+ .card{padding:14px;margin:14px 0}
+ .bd span{width:24px;height:24px}
+ #toast{top:72px}
+}
+</style></head><body>
+<button id="mb" onclick="tg()" aria-label="Buka atau tutup menu"><i></i><i></i><i></i></button><aside id="sb"></aside><div id="bk" onclick="tg()"></div>
+<main id="app"></main><div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const LOGO='<svg viewBox="0 0 48 48" width="%s" height="%s"><circle cx="24" cy="24" r="21" fill="#ffc93c" stroke="#12343b" stroke-width="3"/><path d="M24 8l7 16-7 16-7-16z" fill="#ff6b57" stroke="#12343b" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="#12343b"/></svg>';
+const JD={sepatu:{n:'Ukuran Sepatu',u:'EU',a:40,b:[38,40]},bb:{n:'Berat Badan',u:'kg',a:50,b:[45,55]},tb:{n:'Tinggi Badan',u:'cm',a:160,b:[155,165]},uang:{n:'Uang Saku',u:'Rp',a:20000,b:[10000,20000]},hp:{n:'Durasi HP',u:'jam/hari',a:5,b:[3,5]}};
+const Q=d=>[[`Berapa rata-rata ${d.n}?`,'AVERAGE'],[`Berapa ${d.n} terbesar?`,'MAX'],[`Berapa ${d.n} terkecil?`,'MIN'],['Berapa selisih terbesar dan terkecil?','MAX - MIN'],[`Berapa siswa dengan ${d.n} ${d.a} ke atas?`,'COUNTIF'],[`Berapa siswa dengan ${d.n} ${d.b[0]} sampai ${d.b[1]}?`,'COUNTIFS'],['Berapa siswa di atas rata-rata, dan berapa yang sama atau di bawahnya?','IF + COUNTIF']];
+const FX=(q,d)=>['=AVERAGE(B2:B30)','=MAX(B2:B30)','=MIN(B2:B30)','=MAX(B2:B30)-MIN(B2:B30)',`=COUNTIF(B2:B30;">=${d.a}")`,`=COUNTIFS(B2:B30;">=${d.b[0]}";B2:B30;"<=${d.b[1]}")`,'=IF(B2>AVERAGE(B$2:B$30);"Di atas";"Di bawah")'][q];
+const AP=[[0],[1,2],[4],[5],[6]];
+const M=[['AVERAGE','Mencari rata-rata semua data. Caranya sama dengan menjumlah semua data lalu membaginya dengan banyaknya data.','=AVERAGE(B2:B11)','Rata-rata nilai rapor, rata-rata pengeluaran harian.'],
+['MAX dan MIN','MAX mencari angka terbesar, MIN mencari angka terkecil. Selisihnya didapat dengan mengurangkan keduanya.','=MAX(B2:B11)\n=MIN(B2:B11)\n=MAX(B2:B11)-MIN(B2:B11)','Harga termurah dan termahal, suhu tertinggi dan terendah.'],
+['COUNTIF','Menghitung banyaknya data yang memenuhi satu syarat. Geser batas di bawah untuk melihat hasilnya berubah.','=COUNTIF(B2:B11;">=@T@")','Jumlah siswa yang lulus KKM, jumlah hari hujan dalam sebulan.'],
+['COUNTIFS','Menghitung banyaknya data yang memenuhi dua syarat atau lebih sekaligus. Setiap syarat punya pasangan kolom dan kriteria sendiri.','=COUNTIFS(B2:B11;">=80";B2:B11;"<=90")','Jumlah siswa bernilai 70 sampai 85, jumlah transaksi di atas batas pada bulan tertentu.'],
+['IF','Memberi label otomatis: jika syarat benar hasilnya A, jika salah hasilnya B. Contoh ini membandingkan tiap skor dengan rata-rata. Tulis di baris pertama, lalu salin ke baris di bawahnya. Setelah semua baris berlabel, hitung tiap label dengan COUNTIF.','=IF(B2>AVERAGE(B$2:B$11);"Di atas";"Di bawah")','Status Lulus atau Remedial, harga kena diskon atau tidak.']];
+const D=[70,85,90,65,85,95,80,85,70,100],HLS=[()=>1,v=>v==100||v==65,(v,t)=>v>=t,v=>v>=80&&v<=90,v=>v>82.5];
+function vz(k,t){t=t||85;const h=v=>HLS[k](v,t),n=D.filter(h).length;
+const res=['Rata-rata = 825 : 10 = 82,5','MAX = 100, MIN = 65, selisih = 35',`Ada ${n} siswa dengan skor ${t} ke atas`,`Ada ${n} siswa dengan skor 80 sampai 90`,'6 siswa Di atas rata-rata (82,5), 4 siswa Di bawah'][k];
+const tb=`<table class=sh><tr><th></th><th>A</th><th>B</th>${k==4?'<th>C</th>':''}</tr>`+D.map((v,i)=>`<tr><th>${i+2}</th><td>${i+1}</td><td class="${h(v)?'hl':''}">${v}</td>${k==4?`<td>${v>82.5?'Di atas':'Di bawah'}</td>`:''}</tr>`).join('')+'</table>';
+const bars=D.map((v,i)=>`<rect x="${8+i*29}" y="${112-v}" width="22" height="${v}" rx="3" fill="${h(v)?'#ff6b57':'#9ad9d0'}" stroke="#12343b" stroke-width="1.5"/><text x="${19+i*29}" y="${108-v}" font-size="9" text-anchor="middle" fill="#12343b">${v}</text><text x="${19+i*29}" y="125" font-size="9" text-anchor="middle" fill="#12343b">${i+1}</text>`).join('');
+const ln=k==0||k==4?`<line x1="0" x2="300" y1="${112-82.5}" y2="${112-82.5}" stroke="#7a5cff" stroke-width="2" stroke-dasharray="5"/>`:k==2?`<line x1="0" x2="300" y1="${112-t}" y2="${112-t}" stroke="#7a5cff" stroke-width="2" stroke-dasharray="5"/>`:k==3?'<rect x="0" y="22" width="300" height="10" fill="#7a5cff" opacity=".25"/>':'';
+return `<div class=vz>${tb}<svg viewBox="0 0 300 130" style="flex:1;min-width:220px;max-width:360px">${bars}${ln}</svg></div><div class=rs>${res}</div>`}
+const slid=t=>`<div id=z2>${vz(2,t)}</div>`;
+function mat(i,full){const m=M[i];let h=`<p>${m[1]}</p><code>${m[2].replace('@T@','<span id=t2>85</span>')}</code><p style="font-size:.85rem">Contoh memakai skor kuis 10 siswa (bukan data tugasmu). Sel kuning dan batang merah menunjukkan data yang ikut dihitung.</p>`;
+h+=i==2?`<label>Batas skor: <input type=range min=65 max=100 step=5 value=85 oninput="$('#z2').innerHTML=vz(2,+this.value);$('#t2').textContent=this.value"></label>${slid(85)}`:`<div>${vz(i)}</div>`;
+if(full)h+=`<p><b>Dipakai juga untuk:</b> ${m[3]}</p><details><summary><b>Penerapan pada kelima jenis data tugas</b></summary><div style="overflow-x:auto"><table class=sh style="width:100%;text-align:left"><tr><th>Data</th><th>Pertanyaan</th><th>Rumus</th></tr>${Object.values(JD).map(d=>AP[i].map(q=>`<tr><td>${d.n}</td><td>${Q(d)[q][0]}</td><td><code style="margin:0;padding:2px 6px;display:inline-block">${FX(q,d)}</code></td></tr>`).join('')).join('')}</table></div><p style="font-size:.85rem">Sesuaikan B2:B30 dengan banyaknya siswa di datamu.</p></details>`;return h}
+const L=[['Input data',[],'Foto kelompokmu saat memasukkan data ke Google Sheets.','Mengapa data dimasukkan ke Google Sheets, bukan dihitung manual?',['Supaya hitungan otomatis dan cepat','Supaya buku catatan tidak dipakai','Supaya data hilang sendiri'],0,'Sheets menghitung otomatis, dan hasilnya ikut berubah saat data diperbaiki.'],
+['AVERAGE',[0],'Foto kelompokmu saat mengerjakan rumus AVERAGE.','Kamu ingin tahu nilai rata-rata data kelas. Rumus apa yang dipakai?',['MAX','AVERAGE','COUNTIF'],1,'AVERAGE khusus untuk mencari rata-rata.'],
+['MAX dan MIN',[1],'Foto kelompokmu saat mengerjakan MAX dan MIN.','Rumus untuk mencari data paling kecil adalah...',['MIN','AVERAGE','IF'],0,'MIN berasal dari kata minimum, yaitu nilai terkecil.'],
+['COUNTIF',[2],'Foto kelompokmu saat mengerjakan COUNTIF.','Menghitung banyaknya siswa yang datanya di atas batas tertentu memakai...',['AVERAGE','COUNTIF','MAX'],1,'COUNTIF menghitung data yang cocok dengan satu syarat.'],
+['COUNTIFS',[3],'Foto kelompokmu saat mengerjakan COUNTIFS.','COUNTIFS dipakai untuk...',['Menghitung data dengan dua syarat atau lebih','Mencari rata-rata','Mengurutkan data'],0,'Huruf S menandakan jamak: syaratnya lebih dari satu.'],
+['IF',[4],'Foto kelompokmu saat mengerjakan rumus IF.','Fungsi IF dipakai untuk...',['Memberi label otomatis sesuai syarat','Menjumlah data','Mencari data terbesar'],0,'IF memilih hasil yang berbeda tergantung syaratnya benar atau salah.'],
+['Grafik',[],'Foto kelompokmu saat membuat dua grafik.','Grafik batang cocok digunakan untuk...',['Membandingkan beberapa angka','Menghapus data','Menulis rumus'],0,'Tinggi rendahnya batang memudahkan perbandingan antar angka.'],
+['Laporan',[],'Foto kelompokmu saat menyusun laporan di Word.','Bagian "Arti dari Hasil" berisi...',['Penjelasan angka dengan kata-kata sendiri','Daftar nama siswa','Salinan rumus saja'],0,'Angka perlu dijelaskan maknanya, bukan hanya ditampilkan.']];
+const QI=[0,[0],[1,2,3],[4],[5],[6]];
+function misi(i){const ds=S.jenis.split('+').map(x=>x.trim()).filter(x=>JD[x]).map(x=>JD[x]),nm=ds.map(d=>d.n).join(' dan ');
+if(i==0)return `<p>Masukkan data ${nm} seluruh siswa ke Google Sheets. Satu siswa satu baris, judul kolom di baris pertama, dan data ditulis sebagai angka saja tanpa satuan. Gunakan nomor urut, bukan nama.</p>`;
+if(i==6)return `<p>Buat dua grafik dari hasil hitunganmu.</p><ol><li>Gambar 1: diagram batang dari rata-rata, tertinggi, dan terendah.</li><li>Gambar 2: diagram batang atau pie jumlah siswa kategori Di atas dan Di bawah rata-rata.</li></ol><p>Beri judul grafik dan label pada sumbunya.</p>`;
+if(i==7)return `<p>Susun laporan di Word memakai template dari guru: latar belakang, data dan cara mengolah, hasil (tabel dan dua grafik), arti dari hasil, saran, dan kesimpulan. Tulis dengan kata-katamu sendiri tanpa menyebut nama siswa, lalu pindahkan poin pentingnya ke PPT.</p>`;
+return `<p>Kerjakan pertanyaan berikut dengan data kelompokmu, lalu catat hasilnya untuk tabel di laporan.</p>`+ds.map(d=>`<p><b>${d.n} (${d.u})</b></p><ol>${QI[i].map(q=>`<li>${Q(d)[q][0]} <span class=tag>${Q(d)[q][1]}</span></li>`).join('')}</ol>`).join('')+(i==5?'<p>Siswa yang datanya di atas hasil AVERAGE masuk kategori Di atas, selain itu Di bawah. Beri label di tiap baris dengan IF, lalu hitung jumlah tiap kategori dengan COUNTIF.</p>':'')}
+const B=['Pengumpul Data','Penghitung Rata-rata','Pencari Ekstrem','Penghitung Syarat','Penghitung Dua Syarat','Penentu Kategori','Penyaji Grafik','Penyusun Laporan'];
+const BC=['#ff6b57','#ffc93c','#2bb3a3','#7a5cff','#6cc7ff','#ff8fb1','#8ad34f','#ff9f43'];
+const ACC=[['Tanpa',0],['Topi',2],['Kacamata',4],['Headphone',6],['Mahkota',8]];
+const SK=['#ffe0c2','#f1c27d','#d9985f','#a8693a','#6b4226'],HR=['#2b1b17','#6b3e1e','#e0b040','#ff5fa2','#46c8f5','#8a5cff'],SH=['#ff6b57','#7a5cff','#2bb3a3','#ffc93c','#6cc7ff','#ff9f43'];
+const TLIM=15*60;
+let S={},tab='home',cur=null,quizOk=false,tmr=null,img='';
+const API_URL='https://script.google.com/macros/s/AKfycbyuIkPbR4NaxUSXuOWejVFayOPBXqbmXQid47AtYUnmezwAFJm6db2jwbTfmFLwHHO6dQ/exec'; // URL /exec dari Apps Script (Terapkan > Aplikasi web)
+async function api(fn,...a){
+  if(!/^https:\/\//.test(API_URL))throw new Error('API_URL belum diisi di index.html');
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args:a})});
+  const j=await r.json();
+  if(j.error)throw new Error(j.error);
+  return j.data;
+}
+const pct=()=>Math.round(S.done.length/L.length*100);
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2800)}
+function boom(){for(let i=0;i<40;i++){const s=document.createElement('span');s.className='cf';s.style.background=BC[i%8];s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*.7+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3400)}}
+function tg(){document.body.classList.toggle('so')}
+function login(){document.body.classList.remove('in','so');$('#app').innerHTML=`<div class=hero>${LOGO.replace(/%s/g,64)}<h1>Ekspedisi Data</h1><p style="margin-top:8px;max-width:30em">Tim kamu menjelajahi data kelas lewat 8 pos. Selesaikan tiap pos, kumpulkan lencana, lalu tampilkan seluruh anggota tim di podium bersama piala.</p></div><div class=card><h3>Masuk sebagai tim</h3><input type=text id=k placeholder="Kode kelompok, contoh XA-01"><input type=password id=p placeholder="PIN"><button class="btn co" onclick=go() style="margin-top:8px">Masuk</button></div>`}
+async function go(){const k=$('#k').value.trim(),p=$('#p').value.trim();try{const r=await api('login',k,p);if(r.err)return toast(r.err);S={g:r.g,p,jenis:r.jenis,done:r.done||[],av:r.av||[],sel:0};tab='home';if(innerWidth>=900)document.body.classList.add('so');shell()}catch(e){toast('Gagal terhubung: '+e)}}
+function shell(){document.body.classList.add('in');const t=[['home','Beranda',''],['materi','Materi','Rumus, contoh, visualisasi'],['level','Peta Level',`${S.done.length} dari ${L.length} selesai`],['avatar','Avatar','Karakter tim'],['piala','Piala',S.done.length<L.length?'Terkunci':'Terbuka']];
+$('#sb').innerHTML=`<div style="padding:0 12px 10px"><b>Tim ${S.g}</b><small>${pct()}% selesai</small></div>`+t.map(x=>`<button class="${tab==x[0]||(tab=='lvl'&&x[0]=='level')?'on':''}" onclick="nav('${x[0]}')">${x[1]}${x[2]?`<small>${x[2]}</small>`:''}</button>`).join('')+`<button onclick="S={};login()" style="margin-top:auto">Keluar</button>`;
+$('#app').innerHTML=`<div class=top><div class=r>${LOGO.replace(/%s/g,28)}<b>${S.g}</b><div class=bar><i style="width:${pct()}%"></i></div><b>${pct()}%</b></div><div class=bd>${B.map((b,i)=>`<span class="${S.done.includes(i)?'on':''}" style="${S.done.includes(i)?'background:'+BC[i]:''}" title="${b}">${i+1}</span>`).join('')}</div></div><div id=v></div>`;
+clearInterval(tmr);({home:vHome,materi:vMateri,level:vLevel,avatar:vAvatar,piala:vPiala,lvl:vLvl})[tab]()}
+function nav(t){tab=t;if(innerWidth<900)document.body.classList.remove('so');shell();scrollTo(0,0)}
+function vHome(){const ds=S.jenis.split('+').map(x=>x.trim()).filter(x=>JD[x]);$('#v').innerHTML=`<div class=card><h2>Tentang misi</h2><p>Kelompokmu mengolah data <b>${ds.map(k=>JD[k].n).join(' dan ')}</b> seluruh siswa kelas, dari memasukkan data ke Google Sheets sampai menjadi laporan. Penjelasan misi ada di dalam setiap level.</p></div><div class=card><h3>Cara bermain</h3><ol><li>Baca Materi untuk mengenal rumus, lengkap dengan contoh dan visualisasinya.</li><li>Buka level di Peta Level. Level hanya terbuka jika level sebelumnya selesai.</li><li>Di tiap level: baca misi, jawab cek pemahaman, lalu unggah foto dokumentasi kerja kelompok.</li><li>Setiap level selesai memberi satu lencana dan membuka aksesori karakter.</li><li>Setelah ${L.length} level selesai, piala terbuka dan seluruh anggota tampil di podium.</li></ol><p>Setiap level punya batas waktu ${TLIM/60} menit. Jika waktunya habis, guru bisa membukakan level agar kelompokmu tidak tertahan.</p><button class="btn la" onclick="nav('materi')" style="margin:6px 6px 0 0">Buka materi</button><button class="btn" onclick="nav('level')" style="margin-top:6px">Ke peta level</button></div>`}
+function vMateri(){$('#v').innerHTML=`<div class=card style="background:var(--su)"><h2>Cara menulis rumus</h2><ul><li>Semua rumus diawali tanda sama dengan (=).</li><li>Rentang data ditulis awal:akhir. B2:B11 berarti kolom B, baris 2 sampai 11.</li><li>Syarat ditulis dalam tanda kutip, misalnya ">=85".</li><li>Di Google Sheets pengaturan Indonesia, pemisah argumen memakai titik koma (;). Jika muncul error, coba ganti dengan koma.</li></ul></div>`+M.map((m,i)=>`<div class=card><h2>${m[0]}</h2>${mat(i,1)}</div>`).join('')}
+function vLevel(){$('#v').innerHTML='<h2 style="margin-top:16px">Peta level</h2><div class=trail>'+L.map((l,i)=>{const d=S.done.includes(i),open=i==0||S.done.includes(i-1);return `<button class="btn lv ${d?'done':''} ${open||d?'':'lock'}" ${open||d?`onclick="openL(${i})"`:'disabled'}><span class=n>${i+1}</span><span><b>${l[0]}</b><small>${d?'Selesai':open?'Terbuka':'Terkunci, selesaikan level sebelumnya'}</small></span></button>`}).join('')+'</div>'}
+function openL(i){cur=i;quizOk=S.done.includes(i);tab='lvl';shell();scrollTo(0,0)}
+function vLvl(){const l=L[cur];let h=`<button class=btn onclick="nav('level')" style="margin-top:14px">Kembali ke peta</button><div class=card><h2>Level ${cur+1} dari ${L.length}: ${l[0]}</h2><div>Sisa waktu <span id=tm></span></div><div id=hint></div></div><div class=card><h3>Misi level ini</h3>${misi(cur)}</div>`;
+l[1].forEach(i=>h+=`<details class=card><summary><b>Penjelasan dan contoh ${M[i][0]}</b></summary>${mat(i)}</details>`);
+h+=quizOk?upCard(l):`<div class=card><h3>Cek pemahaman</h3><p>${l[3]}</p>${l[4].map((o,j)=>`<button class="btn opt" onclick="ans(this,${j})">${o}</button>`).join('')}<p id=fb></p></div>`;
+$('#v').innerHTML=h;let left=TLIM;const f=()=>{const e=$('#tm');if(!e)return;e.textContent=left>0?`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`:'habis';if(left--<0){clearInterval(tmr);$('#hint').innerHTML=`<p style="margin-top:8px">Waktu level habis. Buka kembali Materi atau minta guru membuka level ini.</p><input type=text id=gc placeholder="Kode guru"><button class="btn vi" onclick=resc()>Buka level</button>`}};f();tmr=setInterval(f,1000)}
+function upCard(l){return `<div class=card><h3>Foto dokumentasi</h3><p>${l[2]}</p><p style="font-size:.85rem">Foto kegiatan atau layar saja. Jangan tampilkan nama atau data pribadi teman yang terbaca jelas.</p><input type=file id=ph accept="image/*" onchange=pv(this)><img id=im style="max-width:100%;border-radius:10px;margin:8px 0;display:none"><br><button class="btn la" id=sb2 onclick=snd() disabled>Kirim foto</button></div>`}
+function ans(b,j){const l=L[cur];if(j==l[5]){b.classList.add('ok');quizOk=true;toast('Jawaban benar. '+l[6]);setTimeout(vLvlKeep,1000)}else{b.classList.add('no');$('#fb').textContent='Belum tepat. Coba lagi, tidak ada pengurangan nilai.'}}
+function vLvlKeep(){shell()}
+function pv(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const m=new Image();m.onload=()=>{const k=Math.min(1,900/Math.max(m.width,m.height)),c=document.createElement('canvas');c.width=m.width*k;c.height=m.height*k;c.getContext('2d').drawImage(m,0,0,c.width,c.height);img=c.toDataURL('image/jpeg',.7);$('#im').src=img;$('#im').style.display='block';$('#sb2').disabled=false};m.src=e.target.result};r.readAsDataURL(f)}
+async function snd(){$('#sb2').disabled=true;$('#sb2').textContent='Mengirim';try{const r=await api('uploadPhoto',S.g,S.p,cur,img);if(r.err)throw r.err;fin()}catch(e){toast('Gagal mengirim: '+e);$('#sb2').disabled=false;$('#sb2').textContent='Kirim foto'}}
+async function resc(){try{const r=await api('rescue',S.g,S.p,$('#gc').value,cur);if(r.err)return toast(r.err);fin()}catch(e){toast('Gagal terhubung: '+e)}}
+function fin(){if(!S.done.includes(cur))S.done.push(cur);boom();toast(`Lencana "${B[cur]}" diperoleh.`);if(S.done.length==L.length)setTimeout(()=>{tab='piala';shell();boom()},1200);else{tab='level';shell()}}
+let R,SC,CA,GR,SELC=null,m3='';
+function init3(){R=new THREE.WebGLRenderer({antialias:true,alpha:true});SC=new THREE.Scene();CA=new THREE.PerspectiveCamera(40,1,.1,100);SC.add(new THREE.HemisphereLight(0xffffff,0x8866cc,1.1));const d=new THREE.DirectionalLight(0xffffff,.8);d.position.set(3,6,5);SC.add(d);GR=new THREE.Group();SC.add(GR);(function lp(){requestAnimationFrame(lp);if(!R.domElement.isConnected)return;const t=Date.now()/1000;GR.rotation.y=m3=='c'?0:Math.sin(t*.6)*.3;if(SELC)SELC.rotation.y=t*1.2;R.render(SC,CA)})()}
+const bx=(w,h,d,c,x,y,z)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshLambertMaterial({color:c}));m.position.set(x,y,z);return m};
+function chr(a){const g=new THREE.Group(),A=(...x)=>g.add(bx(...x));A(.5,1.1,.5,'#3b3a7a',-.27,.55,0);A(.5,1.1,.5,'#3b3a7a',.27,.55,0);A(1.1,1.2,.6,a.shirt,0,1.7,0);A(.4,1.1,.5,a.skin,-.78,1.7,0);A(.4,1.1,.5,a.skin,.78,1.7,0);A(1,1,1,a.skin,0,2.8,0);A(1.06,.35,1.06,a.hair,0,3.28,0);A(1.06,.8,.2,a.hair,0,2.9,-.45);A(.12,.12,.05,'#222',-.22,2.85,.51);A(.12,.12,.05,'#222',.22,2.85,.51);A(.3,.06,.05,'#c0392b',0,2.5,.51);
+const c=a.acc;if(c==1){A(1.15,.22,1.15,'#ff6b57',0,3.5,0);A(1.15,.1,.5,'#ff6b57',0,3.42,.7)}if(c==2)A(.95,.18,.08,'#222',0,2.9,.53);if(c==3){A(.2,.5,.5,'#222',-.6,2.8,0);A(.2,.5,.5,'#222',.6,2.8,0);A(1.3,.12,.2,'#222',0,3.4,0)}if(c==4)A(1,.3,1,'#ffc93c',0,3.55,0);return g}
+function place(sc,zf,zb){const n=S.av.length,top=Math.min(n,5),bot=n-top;SELC=null;S.av.forEach((a,i)=>{const row=i<5?0:1,cnt=row?bot:top,idx=row?i-5:i,c=chr(a);c.scale.setScalar(sc);c.position.set((idx-(cnt-1)/2)*2.3,0,row?zb:zf);GR.add(c);if(m3=='c'&&i==S.sel){SELC=c;const d=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,.12,24),new THREE.MeshLambertMaterial({color:'#7a5cff'}));d.scale.setScalar(sc);d.position.set(c.position.x,0,c.position.z);GR.add(d)}})}
+const fitZ=(cnt,frontZ)=>frontZ+((Math.max(cnt,1)-1)*1.15+1.4)/(Math.tan(20*Math.PI/180)*CA.aspect);
+function show3(el,mode){if(!R)init3();m3=mode;while(GR.children.length)GR.remove(GR.children[0]);GR.rotation.y=0;SELC=null;el.appendChild(R.domElement);const w=el.clientWidth,h=mode=='c'&&S.av.length<6?340:400;R.setSize(w,h);R.setPixelRatio(Math.min(devicePixelRatio,2));CA.aspect=w/h;CA.updateProjectionMatrix();
+if(mode=='c'){const n=S.av.length,sc=n<3?1:n<6?.85:.7,top=Math.min(n,5);place(sc,2,-2.8);CA.position.set(0,n>5?7:4,Math.max(Math.max(9,top*2.3*sc*1.4+2)+(n>5?3:0),fitZ(top,2)));CA.lookAt(0,2,0)}else{const gold=new THREE.MeshLambertMaterial({color:'#ffc93c',emissive:'#6b5000'}),T=new THREE.Group(),mk=(geo,y)=>{const m=new THREE.Mesh(geo,gold);m.position.y=y;T.add(m)};mk(new THREE.BoxGeometry(2.2,.5,2.2),.25);mk(new THREE.CylinderGeometry(.22,.22,1.2,12),1.1);mk(new THREE.CylinderGeometry(1.2,.6,1.7,24),2.5);T.scale.setScalar(1.2);GR.add(T);
+place(.75,3.4,-3.4);CA.position.set(0,5.5,Math.max(17,fitZ(Math.min(S.av.length,5),3.4)));CA.lookAt(0,2,0)}}
+const sw=(k,arr)=>arr.map(c=>`<span class="sw ${S.av[S.sel][k]==c?'on':''}" style="background:${c}" onclick="setA('${k}','${c}')"></span>`).join('');
+function vAvatar(){const a=S.av[S.sel],nb=S.done.length;$('#v').innerHTML=`<div class=card><h2>Karakter tim (${S.av.length} dari 9 anggota)</h2><div>${S.av.map((x,i)=>`<button class="btn chip ${i==S.sel?'vi':''}" onclick="S.sel=${i};vAvatar()">${x.n||'Anggota '+(i+1)}</button>`).join('')}${S.av.length<9?'<button class="btn chip la" onclick=addA()>Tambah anggota</button>':''}</div><p style="font-size:.85rem;margin-top:6px">Semua anggota tampil bersama di bawah. Anggota yang sedang diedit berdiri di alas ungu dan berputar.</p></div>`+(a?`<div class=c3 id=c3></div><div class=card><input type=text value="${(a.n||'').replace(/"/g,'&quot;')}" placeholder="Nama panggilan" oninput="S.av[S.sel].n=this.value"><p><b>Warna kulit</b></p>${sw('skin',SK)}<p><b>Warna rambut</b></p>${sw('hair',HR)}<p><b>Warna baju</b></p>${sw('shirt',SH)}<p><b>Aksesori</b> (terbuka lewat lencana)</p>${ACC.map((x,i)=>`<button class="btn chip ${a.acc==i?'vi':''}" ${nb<x[1]?'disabled':''} onclick="setA('acc',${i})">${nb<x[1]?'Buka di '+x[1]+' lencana':x[0]}</button>`).join('')}<br><button class="btn la" onclick=svA() style="margin-top:8px">Simpan karakter</button> <button class="btn co" onclick="S.av.splice(S.sel,1);S.sel=0;svA(1)">Hapus anggota</button></div>`:'<div class=card><p>Belum ada karakter. Pilih Tambah anggota untuk membuat karakter pertama.</p></div>');if(a)show3($('#c3'),'c')}
+function addA(){S.av.push({n:'',skin:SK[1],hair:HR[0],shirt:SH[S.av.length%6],acc:0});S.sel=S.av.length-1;vAvatar()}
+function setA(k,v){S.av[S.sel][k]=v;vAvatar()}
+async function svA(q){try{await api('saveAvatars',S.g,S.p,JSON.stringify(S.av));toast('Karakter tersimpan.');if(q)vAvatar()}catch(e){toast('Gagal menyimpan: '+e)}}
+function vPiala(){if(S.done.length<L.length){$('#v').innerHTML=`<div class=card><h2>Piala masih terkunci</h2><p>Selesaikan semua level untuk membukanya. Sisa ${L.length-S.done.length} level.</p><button class="btn" onclick="nav('level')" style="margin-top:10px">Ke peta level</button></div>`;return}
+$('#v').innerHTML=`<div class=card><h2>Misi selesai</h2><p>Kelompok ${S.g} menyelesaikan seluruh level dan mengumpulkan ${L.length} lencana.</p></div><div class=c3 id=c3></div><div class=card>${B.map((b,i)=>`<span class="tag chip" style="background:${BC[i]}">${b}</span>`).join('')}<br><button class="btn" onclick=boom() style="margin-top:8px">Tampilkan konfeti</button>${S.av.length?'':'<p style="margin-top:8px">Belum ada karakter di podium. Buat karakter lebih dulu di menu Avatar.</p>'}</div>`;show3($('#c3'),'p')}
+let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(innerWidth===lw)return;lw=innerWidth;const c=$('#c3');if(c&&R&&(tab=='avatar'||tab=='piala'))show3(c,tab=='avatar'?'c':'p')},200)});
+login();
+</script></body></html>
